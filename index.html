@@ -10,47 +10,62 @@
   
   <!-- AOS CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
-  
+
   <style>
-    /* Background animation for hero */
+    /* Background gradient animation */
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    @keyframes bgImageFadeZoom {
-      0%, 100% { opacity: 0.8; transform: scale(1) translate(0, 0); }
-      50% { opacity: 0.9; transform: scale(1.05) translate(10px, 5px); }
+
+    /* Hero solar flare animation */
+    @keyframes solarFlare {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 20px rgba(255,215,0,0.3); }
+      50% { text-shadow: 0 0 20px rgba(355, 215, 0, 0.9), 0 0 40px rgba(255,215,0,0.5); }
     }
 
+    /* Button glow pulse effect */
+    @keyframes pulseGlow {
+      from {
+        box-shadow: 0 0 15px #FFC107, 0 0 25px #FFB300;
+      }
+      to {
+        box-shadow: 0 0 30px #FFD700, 0 0 50px #FFB300;
+      }
+    }
+
+    /* Subtle floating particle background (optional) */
+    @keyframes floatingParticles {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 100% 100%, 200% 200%; }
+    }
+
+    /* HERO section */
     .hero {
       position: relative;
       color: #6b4f00;
       padding: 120px 20px;
       text-align: center;
-      border-radius: 0 0 60px 60px;
       overflow: hidden;
       background: linear-gradient(270deg, #fff9e6, #ffe8a1, #fff9e6, #ffe8a1);
       background-size: 800% 800%;
       animation: gradientShift 20s ease infinite;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      border-radius: 0 0 60px 60px;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
     }
     .hero::before {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, #fff9e6, #ffe8a1);
+      top:0; left:0; right:0; bottom:0;
       background-image:
-        radial-gradient(circle at center, rgba(255 215 0 / 0.15) 0%, transparent 70%),
-        repeating-conic-gradient(rgba(255 215 0 / 0.05) 0deg 5deg, transparent 5deg 10deg);
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      opacity: 0.8;
-      animation: bgImageFadeZoom 60s ease-in-out infinite;
+        radial-gradient(circle at center, rgba(255, 215, 0, 0.15) 0%, transparent 70%),
+        repeating-conic-gradient(rgba(255,215,0,0.05) 0deg 5deg, transparent 5deg 10deg),
+        url('https://www.transparenttextures.com/patterns/circles.png');
+      background-size: cover, cover, 150px 150px;
+      opacity: 0.3;
       z-index: 0;
-      filter: brightness(1) contrast(1.05);
-      will-change: opacity, transform;
+      animation: floatingParticles 60s linear infinite;
     }
     .hero > * {
       position: relative;
@@ -59,119 +74,125 @@
     .hero h1 {
       font-size: 3rem;
       font-weight: 900;
-      text-shadow: 1px 1px 6px rgba(255 215 0, 0.7);
       letter-spacing: 2px;
-      margin-bottom: 0.5rem;
+      animation: solarFlare 3s ease-in-out infinite;
     }
     .hero p.lead {
       font-size: 1.4rem;
       font-weight: 600;
-      text-shadow: 1px 1px 4px rgba(255 215 0, 0.5);
-      margin-bottom: 2rem;
       max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: auto;
       color: #5a4200;
+      text-shadow: 1px 1px 4px rgba(255, 215, 0, 0.5);
     }
+
+    /* Glow Buttons */
     .btn-glow {
       background: linear-gradient(45deg, #FFD700, #FFB800);
       border: none;
-      box-shadow: 0 0 10px #FFB300;
-      font-weight: 600;
       color: #4b3200;
-      transition: all 0.4s ease;
+      font-weight: 600;
+      animation: pulseGlow 2.5s infinite alternate;
+      transition: transform 0.3s ease;
     }
     .btn-glow:hover {
-      box-shadow: 0 0 25px #FFC107, 0 0 50px #FFB300;
       transform: scale(1.08);
       color: #3a2600;
     }
 
-    /* Cards */
+    /* Product/Service Cards */
     .feature-card {
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
       border-radius: 15px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       background: #fff;
-      color: #222;
       padding: 20px 15px;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content:"";
+      background: url('https://www.transparenttextures.com/patterns/solar.png');
+      opacity: 0.05;
+      position: absolute;
+      top:0;left:0;right:0;bottom:0;
     }
     .feature-card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 15px 30px rgba(255, 165, 0, 0.3);
+      transform: translateY(-12px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(255, 165, 0, 0.4);
+      border: 2px solid #FFD700;
+      background: linear-gradient(145deg, #fff7cc, #fff3b0);
     }
 
-    /* MAIN sections background with deep blue translucent overlay */
+    /* Content Section */
     .content-section {
-      background-color: rgba(10, 25, 70, 0.7); /* deep blue */
+      background: rgba(10,25,70,0.85) url('https://www.transparenttextures.com/patterns/gplay.png');
+      background-size: cover;
       border-radius: 20px;
       padding: 40px 30px;
       margin-bottom: 40px;
       box-shadow: 0 0 40px rgba(0,0,0,0.3);
-      color: #f0f0f0; /* light text */
-    }
-
-    .content-section h2.text-success {
-      color: #FFD700; /* gold heading */
-    }
-
-    .content-section p.lead,
-    .content-section p,
-    .content-section a {
       color: #f0f0f0;
     }
-
-    /* Keep map container transparent */
-    #contact .col-md-6:last-child {
-      background: transparent !important;
-      box-shadow: none !important;
-      border-radius: 0 !important;
-      padding: 0 !important;
-      margin: 0 !important;
+    .content-section h2 {
+      color: #FFD700;
     }
 
+    /* Contact Map & Links */
+    #contact iframe {
+      filter: brightness(80%);
+      border-radius: 12px;
+    }
+    #contact a {
+      color: #FFD700;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    #contact a:hover {
+      color: #fff;
+    }
+
+    /* Footer */
     footer {
-      background: #222;
+      background: #111;
       color: #ccc;
-      padding: 20px 0;
+      padding: 20px;
+      font-size: 0.9rem;
     }
     footer a {
       color: #FFD700;
-      text-decoration: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Hero Section -->
-  <section class="hero" data-aos="zoom-in" data-aos-duration="1200">
-    <h1>Western Solar Systems</h1>
+  <!-- HERO Section -->
+  <section class="hero" data-aos="zoom-in">
+    <h1>☀ Western Solar Systems</h1>
     <p class="lead" data-aos="fade-up" data-aos-delay="200">Power Your Future with Clean & Renewable Solar Energy</p>
+	<br>
     <a href="tel:08314211109" class="btn btn-warning btn-lg me-2 btn-glow" data-aos="fade-up" data-aos-delay="400">📞 Call Sales</a>
     <a href="#contact" class="btn btn-success btn-lg btn-glow" data-aos="fade-up" data-aos-delay="600">📩 Get a Free Quote</a>
   </section>
 
-  <!-- About Section -->
+  <!-- ABOUT Section -->
   <section class="container content-section py-5" data-aos="fade-right">
     <div class="text-center mb-4">
-      <h2 class="text-success">About Us</h2>
-      <p class="lead">
-        Since 2014, Western Solar Systems has been delivering high-quality solar solutions in North Karnataka, Maharashtra, and Goa.
-        We are authorized distributors of solar water heaters, power plants, lighting systems, and more — trusted by thousands with a 4.7★ rating.
-      </p>
+      <h2>About Us</h2>
+      <p class="lead">Since 2014, Western Solar Systems has been delivering high-quality solar solutions across North Karnataka, Maharashtra, and Goa. Trusted by thousands, 4.7★ rated.</p>
     </div>
   </section>
 
-  <!-- Products & Services -->
+  <!-- PRODUCTS Section -->
   <section class="container content-section py-5">
     <div class="text-center mb-4" data-aos="fade-up">
-      <h2 class="text-success">Our Products & Services</h2>
+      <h2>Our Products & Services</h2>
     </div>
     <div class="row g-4">
       <div class="col-md-4" data-aos="zoom-in">
         <div class="card feature-card h-100 text-center p-3">
           <h5>Solar Water Heaters</h5>
-          <p>Flat Plate Collectors, Evacuated Tube Collectors, Heat Pumps</p>
+          <p>Flat Plate, Evacuated Tube, Heat Pumps</p>
         </div>
       </div>
       <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
@@ -189,7 +210,7 @@
       <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
         <div class="card feature-card h-100 text-center p-3">
           <h5>Solar Pumps</h5>
-          <p>Reliable water pumping solutions powered by the sun</p>
+          <p>Reliable solar-powered water pumps</p>
         </div>
       </div>
       <div class="col-md-4" data-aos="zoom-in" data-aos-delay="400">
@@ -201,16 +222,16 @@
       <div class="col-md-4" data-aos="zoom-in" data-aos-delay="500">
         <div class="card feature-card h-100 text-center p-3">
           <h5>Financing Options</h5>
-          <p>Interest-free & NBFC-backed loans available</p>
+          <p>Interest-free & NBFC-backed loans</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
+  <!-- CONTACT Section -->
   <section class="container content-section py-5" id="contact" data-aos="fade-up">
     <div class="text-center mb-4">
-      <h2 class="text-success">Contact Us</h2>
+      <h2>Contact Us</h2>
     </div>
     <div class="row g-4">
       <div class="col-md-6" data-aos="fade-right">
@@ -232,17 +253,11 @@
     <p>&copy; 2025 Western Solar Systems | Designed for a Sustainable Future</p>
   </footer>
 
-  <!-- Bootstrap JS Bundle -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- AOS JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-
   <script>
-    AOS.init({
-      once: true,
-      duration: 1000,
-    });
+    AOS.init({ once:true, duration:1000 });
   </script>
 </body>
 </html>
